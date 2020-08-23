@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="BOMComparator.Views.FindSimilarMotorsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BOMComparator.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="450" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <TextBox x:Name="PartNumber" VerticalContentAlignment="Center" TextAlignment="Center" Grid.Row="0" Margin="3"></TextBox>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Margin="0 0 10 0 ">Max. differences</TextBlock>
+            <ComboBox Width="50" ItemsSource="{Binding SimilarityLevel}" SelectedItem="{Binding SelectedSimilarityLevel}"/>
+        </StackPanel>
+        
+        <ContentControl Grid.Row="2" VerticalContentAlignment="Center" x:Name="Filter" Margin="0 10 0 10"/>
+
+        <Button x:Name="ExecuteSearch" Content="SEARCH" Margin="3"
+            HorizontalAlignment = "Stretch" VerticalAlignment = "Stretch" 
+            Grid.Row="3" IsDefault="True"/>
+    </Grid>
+</UserControl>

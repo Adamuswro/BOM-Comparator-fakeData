@@ -1,0 +1,45 @@
+﻿<Window x:Class="BOMComparator.Views.WhereUsedView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:BOMComparator.Views"
+        xmlns:local="clr-namespace:BOMComparator.Views"
+        mc:Ignorable="d" WindowStartupLocation = "Manual" Left="0" Top="0"
+        xmlns:cal="http://www.caliburnproject.org"
+        Title="WhereUsedView" Height="450" Width="800">
+    <Grid Margin="0,1,0,-1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Menu buttons -->
+        <uc:Menu Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+
+        <!-- Row 0 -->
+        <TextBox Background="Transparent" BorderThickness="0" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name= "ViewTitle" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+
+        <!-- Row 1 -->
+        <DataGrid Grid.Row="1" Grid.Column="1"  x:Name="Motors" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
+                  HorizontalScrollBarVisibility="Disabled" IsReadOnly="True" SelectionUnit="Cell" ItemsSource="{Binding Motors}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="cal:Message.Attach" Value="[MouseDoubleClick] = [Action RowSelect($dataContext)]"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Motor Number" MinWidth="80" Binding="{Binding MotorNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Motor Type"  MinWidth="80" Binding="{Binding MotorTypeTxt}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Displacement"  MinWidth="80" Binding="{Binding Displacement}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Feature" MinWidth="80" Binding="{Binding Feature}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" MinWidth="100" Binding="{Binding Description}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

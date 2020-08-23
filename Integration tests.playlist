@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="BOMComparatorLibrary.Tests.MotorTests.AddPart_shouldCreate2BOMItems" /><Add Test="BOMComparatorLibrary.Tests.MotorTests.RemoveAllParts_ShouldRemoveAllBOMItemsAndNotRemoveParts" /></Playlist>

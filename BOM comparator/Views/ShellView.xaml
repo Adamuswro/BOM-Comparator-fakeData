@@ -1,0 +1,77 @@
+﻿<Window x:Class="BOMComparator.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:local="clr-namespace:BOMComparator.Views"
+        xmlns:vm="clr-namespace:BOMComparator.ViewModels"
+        mc:Ignorable="d" FontSize="16"
+        Height="750" Width="650"
+        Title="BOM Comparator" MinHeight="200" MinWidth="450"
+        WindowState="Maximized">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:UsedWithSearchViewModel}">
+            <local:UsedWithSearchView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="5" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Row 0 -->
+        <Menu HorizontalAlignment = "Left" VerticalAlignment = "Top" Width = "auto"
+              Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <MenuItem Header = "Actions" Width="auto" Height="auto">
+                <MenuItem x:Name="ShowSearchView"  Header = "BOM analize" HorizontalAlignment = "Left" Width = "auto" />
+            </MenuItem>
+            <MenuItem Header = "Database" Width="auto" Height="auto">
+                <MenuItem x:Name="LoadFiles"  Header = "Load Files" HorizontalAlignment = "Left" Width = "auto" />
+                <MenuItem x:Name="ClearCache"  Header = "Clear loaded data" HorizontalAlignment = "Left" Width = "auto" />
+                <MenuItem x:Name="ShowSettings"  Header = "Settings" HorizontalAlignment = "Left" Width = "auto" />
+            </MenuItem>
+            <MenuItem Header = "Help" Width="auto" Height="auto">
+                <MenuItem x:Name="About" Header = "About" HorizontalAlignment = "Left" Width = "auto" />
+            </MenuItem>
+        </Menu>
+
+        <!-- Row 1 -->
+        <ContentControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ActiveItem" Margin="0 10 0 10"/>
+
+        <!-- Row 2 -->
+        <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
+                  ItemsSource="{Binding Logs}" IsReadOnly="True"
+					  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Time stamp"
+										Binding="{Binding TimeStamp, StringFormat='hh:mm:ss.fff'}"/>
+                <DataGridTextColumn Header="Message"
+										Binding="{Binding Message}"
+										Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Window>
+    

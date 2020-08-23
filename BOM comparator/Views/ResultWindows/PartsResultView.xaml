@@ -1,0 +1,68 @@
+﻿<Window x:Class="BOMComparator.Views.PartsResultView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BOMComparator.Views"
+        mc:Ignorable="d" 
+        xmlns:cal="http://www.caliburnproject.org"
+        Title="BOM Comparator - search managers" Height="700" Width="850"
+        WindowStartupLocation = "Manual" Left="0" Top="0" >
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3" />
+        </Grid.ColumnDefinitions>
+        <!-- Menu -->
+        <local:Menu Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"/>
+        <!-- Row 1 -->
+        <TextBox Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" x:Name= "SearchDescription" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+
+        <!-- Row 2 -->
+        <DataGrid x:Name="SearchResult" ItemsSource="{Binding UsedWithResults}" SelectionUnit="Cell" Grid.Row="2" Grid.Column="2" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="Gray" BorderThickness="5" IsReadOnly="True"                      VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+            <DataGrid.Resources>
+            </DataGrid.Resources>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="cal:Message.Attach" Value="[MouseDoubleClick] = [Action RowSelect($dataContext)]"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Part Number" MinWidth="80" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding PartUsedWith.PartNumber}"/>
+                <DataGridTextColumn Header="Position Numbers" Width="70" MinWidth="50" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding PositionNumbers}"/>
+                <DataGridTextColumn Header="Designation" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" MinWidth="100" Binding="{Binding PartUsedWith.Designation}" Width=".7*"/>
+                <DataGridTextColumn Header="Description" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding PartUsedWith.Description}" MinWidth="100" Width="*"/>
+                <DataGridTextColumn Header="No of motors where used" MinWidth="70" Width="100" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding MotorsUsedWith.Count}" />
+                <DataGridTemplateColumn Header="Motors" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" MinWidth="170" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Expander  Header="Show motors" >
+                                <DataGrid ItemsSource="{Binding MotorsUsedWith}" AutoGenerateColumns="False"  Height="200" HorizontalAlignment="Left"
+                                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding FullDescription}"                                         IsReadOnly="True" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

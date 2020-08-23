@@ -1,0 +1,47 @@
+﻿<Window x:Class="BOMComparator.Views.MotorBOMView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BOMComparator.Views"
+        mc:Ignorable="d" WindowStartupLocation = "Manual" Left="0" Top="0"
+        xmlns:cal="http://www.caliburnproject.org"
+        Title="MotorBOMView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".05*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Menu buttons -->
+        <local:Menu Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+
+        <!-- Row 0 -->
+        <TextBox Background="Transparent" BorderThickness="0" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name= "ViewTitle" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+
+        <!-- Row 1 -->
+        <DataGrid Grid.Row="1" Grid.Column="1" x:Name="BOM" ItemsSource="{Binding BOM}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"
+                  HorizontalScrollBarVisibility="Disabled" IsReadOnly="True" SelectionUnit="Cell">
+            <DataGrid.Resources>
+            </DataGrid.Resources>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="cal:Message.Attach" Value="[MouseDoubleClick] = [Action RowSelect($dataContext)]"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Part Number" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" MinWidth="80" Binding="{Binding PartItem.PartNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Position number" MinWidth="80" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding PositionNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Designation" MinWidth="80" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding PartItem.Designation}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" MinWidth="100" Width="*" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding PartItem.Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Quantity" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Binding="{Binding Quantity}" MinWidth="80"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Window>
